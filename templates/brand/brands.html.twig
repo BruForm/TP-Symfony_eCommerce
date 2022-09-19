@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Brands{% endblock %}
+
+{% block main %}
+    <h1>Brands Page ✅</h1>
+
+<div class="d-flex flex-wrap justify-content-around">
+    {% for brand in brands %}
+        <div class="card m-2" style="width: 18rem;">
+            <img src="https://via.placeholder.com/200x150.png/990044/010101?text=Image {{ brand.name }}" class="card-img-top" alt="...">
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{ brand.name }}</h5>
+                <p class="card-text">{{ brand.address }}</p>
+                <p class="card-text">Created at : {{ brand.createdAt | date('Y/m/d') }}</p>
+                <a href="{{ path('app_brand_details', {'id' : brand.id}) }}" class="btn btn-primary mt-auto">Details</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Category{% endblock %}
+
+{% block main %}
+    <h1>Category details : {{ category.name }} ✅</h1>
+    <div class="d-flex">
+        <div class="categ">
+            <div class="card" style="width: 18rem;">
+                <img src="https://via.placeholder.com/200x150.png/0055AA/010101?text=Image {{ category.name }}"
+                     class="card-img-top"
+                     alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ category.name }}</h5>
+                </div>
+            </div>
+        </div>
+        <div class="categProducts">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Category Products :</h5>
+                    <ul>
+                        {% for product in category.products %}
+                            <li>
+                                <a href="{{ path('app_product_details', {'id' : product.id}) }}"
+                                   class="text-decoration-none text-dark">
+                                    {{ product.name }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="{{ path('app_category') }}" class="btn btn-dark my-3">Return</a>
+{% endblock %}

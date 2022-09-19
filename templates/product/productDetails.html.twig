@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Products{% endblock %}
+
+{% block main %}
+    <h1>Product details : {{ product.name }} ✅</h1>
+    <div class="d-flex">
+        <div class="product">
+            <div class="card" style="width: 18rem;">
+                <img src="https://via.placeholder.com/400x300.png/005544/010101?text=Image {{ product.name }}"
+                     class="card-img-top"
+                     alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.description }}</p>
+                    <p class="card-text">{{ product.price | number_format(2) }}€</p>
+                </div>
+            </div>
+        </div>
+        <div class="productCategs">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Product categories :</h5>
+                    <ul>
+                        {% for category in product.categories %}
+                            <li>
+                                <a href="{{ path('app_category_details', {'id' : category.id}) }}"
+                                   class="text-decoration-none text-dark">
+                                    {{ category.name }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="productBrand">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Product brand :</h5>
+                    <ul>
+                        <li>
+                            <a href="{{ path('app_brand_details', {'id' : product.brand.id}) }}"
+                               class="text-decoration-none text-dark">
+                                {{ product.brand.name }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="{{ path('app_product') }}" class="btn btn-dark my-3">Return</a>
+{% endblock %}
