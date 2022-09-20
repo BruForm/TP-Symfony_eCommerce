@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Category{% endblock %}
+
+{% block main %}
+
+    <h1>Category creation : ✅</h1>
+
+    {{ form_start(categForm) }}
+        <hr>
+        {{ form_row(categForm.name) }}
+        <hr>
+        <input type="submit" value="Create" class="btn btn-primary mt-auto">
+    {{ form_end(categForm) }}
+
+    <a href="{{ path('app_category') }}" class="btn btn-dark my-3">Return</a>
+
+{% endblock %}

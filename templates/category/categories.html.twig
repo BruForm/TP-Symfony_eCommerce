@@ -4,8 +4,13 @@
 
 {% block main %}
 
+    {% for message in app.flashes('success') %}
+        <p>{{ message }}</p>
+    {% endfor %}
+
     <h1>Categories Page ✅</h1>
-    <div class="d-flex flex-wrap justify-content-around">
+    <a href="{{ path('app_category_new') }}" class="btn btn-primary">Create New</a>
+    <div class="d-flex flex-wrap">
         {% for category in categories %}
             <div class="card m-2" style="width: 18rem;">
                 <img src="https://via.placeholder.com/200x150.png/0055AA/010101?text=Image {{ category.name }}"

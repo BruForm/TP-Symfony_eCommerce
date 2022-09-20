@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Brand;
 use App\Entity\Category;
 use App\Entity\Product;
+use App\Form\ProductType;
 use App\Repository\BrandRepository;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
@@ -42,11 +43,25 @@ class ProductController extends AbstractController
 //            'categories' => $categoryRepository->findAll(),
 //        ]);
 //    }
-    #[Route('/product/create', name: 'app_product_new')]
+    #[Route('/product/new', name: 'app_product_new')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-        return $this->render('product/new.html.twig', [
+        $product = new Product();
+        $form = $this->createForm(ProductType::class, $product);
 
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($product);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Le produit ' . $product->getName() . ' a été créée !');
+
+            return $this->redirectToRoute('app_product');
+        }
+
+        return $this->render('product/newProduct.html.twig', [
+            'productForm' => $form->createView(),
         ]);
     }
 

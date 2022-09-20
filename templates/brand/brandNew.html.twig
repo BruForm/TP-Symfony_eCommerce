@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New brand{% endblock %}
+
+{% block main %}
+    <h1>Brand creation : ✅</h1>
+
+    {{ form_start(brandForm) }}
+    <hr>
+    {{ form_row(brandForm.name) }}
+    {{ form_row(brandForm.address) }}
+    {{ form_row(brandForm.createdAt) }}
+    <hr>
+    <input type="submit" value="Create" class="btn btn-primary mt-auto">
+    {{ form_end(brandForm) }}
+
+    <a href="{{ path('app_brand') }}" class="btn btn-dark my-3">Return</a>
+
+{% endblock %}
