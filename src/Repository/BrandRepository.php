@@ -39,6 +39,15 @@ class BrandRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllFilteredByName(?string $search): array
+    {
+        return $this->createQueryBuilder('s')
+            ->where('s.name like :val')
+            ->setParameter('val', '%' . $search . '%')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Brand[] Returns an array of Brand objects
 //     */

@@ -7,42 +7,42 @@
     <h1>Product creation : ✅</h1>
 
     {{ form_start(productForm) }}
-    <hr>
-    {{ form_row(productForm.name) }}
-    {{ form_row(productForm.description) }}
-    {{ form_row(productForm.price) }}
-{#    {{ form_row(productForm.brand) }}#}
-{#    {{ form_row(productForm.categories) }}#}
-    <hr>
-    <input type="submit" value="Create" class="btn btn-primary mt-auto">
+        <hr>
+        {{ form_row(productForm.name) }}
+        {{ form_row(productForm.description) }}
+        {{ form_row(productForm.price) }}
+        {{ form_row(productForm.brand) }}
+        {{ form_row(productForm.categories) }}
+        <hr>
+        <input type="submit" value="Create" class="btn btn-primary mt-auto">
     {{ form_end(productForm) }}
 
 
-{#    <form action="" method="post">#}
-{#        <label for="name" class="form-label">Name :</label>#}
-{#        <input type="text" name="name" id="name" class="form-control">#}
-{#        <br>#}
-{#        <label for="description" class="form-label">Description :</label>#}
-{#        <textarea type="text" name="description" id="description" class="form-control"></textarea>#}
-{#        <br>#}
-{#        <label for="price" class="form-label">Price :</label>#}
-{#        <input type="number" name="price" id="price" class="form-control">#}
-{#        <br>#}
-{#        <label for="brand" class="form-label">Brand :</label>#}
-{#        <select name="brand" id="brand" class="form-select">#}
-{#            {% for brand in brands %}#}
-{#                <option value="{{ brand.id }}">{{ brand.name }}</option>#}
-{#            {% endfor %}#}
-{#        </select>#}
-{#        <br>#}
-{#        <label for="categories" class="form-label">Categories :</label>#}
-{#        <select name="categories" id="categories" class="form-select" multiple>#}
-{#            {% for category in categories %}#}
-{#                <option value="{{ category.id }}">{{ category.name }}</option>#}
-{#            {% endfor %}#}
-{#        </select>#}
-{#        <br>#}
-{#        <button type="submit" class="btn btn-primary">Create</button>#}
-{#    </form>#}
+    {#    <form action="" method="post"> #}
+    {#        <label for="name" class="form-label">Name :</label> #}
+    {#        <input type="text" name="name" id="name" class="form-control"> #}
+    {#        <br> #}
+    {#        <label for="description" class="form-label">Description :</label> #}
+    {#        <textarea type="text" name="description" id="description" class="form-control"></textarea> #}
+    {#        <br> #}
+    {#        <label for="price" class="form-label">Price :</label> #}
+    {#        <input type="number" name="price" id="price" class="form-control"> #}
+    {#        <br> #}
+    {#        <label for="brand" class="form-label">Brand :</label> #}
+    {#        <select name="brand" id="brand" class="form-select"> #}
+    {#            {% for brand in brands %} #}
+    {#                <option value="{{ brand.id }}">{{ brand.name }}</option> #}
+    {#            {% endfor %} #}
+    {#        </select> #}
+    {#        <br> #}
+    {#        <label for="categories" class="form-label">Categories :</label> #}
+    {#        <select name="categories" id="categories" class="form-select" multiple> #}
+    {#            {% for category in categories %} #}
+    {#                <option value="{{ category.id }}">{{ category.name }}</option> #}
+    {#            {% endfor %} #}
+    {#        </select> #}
+    {#        <br> #}
+    {#        <button type="submit" class="btn btn-primary">Create</button> #}
+    {#    </form> #}
     <a href="{{ path('app_product') }}" class="btn btn-dark my-3">Return</a>
 {% endblock %}

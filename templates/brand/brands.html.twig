@@ -3,14 +3,21 @@
 {% block title %}Brands{% endblock %}
 
 {% block main %}
+
     {% for message in app.flashes('success') %}
         <p>{{ message }}</p>
     {% endfor %}
 
     <h1>Brands Page ✅</h1>
 
-    <a href="{{ path('app_brand_new') }}" class="btn btn-primary">Create New</a>
+    <hr>
+    {{ form_start(brandFilter, {'attr': {'class': 'd-flex w-50'}}) }}
+        {{ form_row(brandFilter.filterOnName) }}
+        <input type="submit" value="Search"  class="btn btn-info ms-2">
+    {{ form_end(brandFilter) }}
+    <hr>
 
+    <a href="{{ path('app_brand_new') }}" class="btn btn-primary">Create New</a>
     <div class="d-flex flex-wrap">
         {% for brand in brands %}
             <div class="card m-2" style="width: 18rem;">

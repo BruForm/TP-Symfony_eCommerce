@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Brand;
+use App\Form\BrandFilterType;
 use App\Form\BrandType;
 use App\Repository\BrandRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,10 +15,21 @@ use Symfony\Component\Routing\Annotation\Route;
 class BrandController extends AbstractController
 {
     #[Route('/brands', name: 'app_brand')]
-    public function brands(BrandRepository $brandRepository): Response
+    public function brands(Request $request, BrandRepository $brandRepository): Response
     {
+        $form = $this->createForm(BrandFilterType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $search = $form->get('filterOnName')->getData();
+            $brands = $brandRepository->findAllFilteredByName($search);
+        } else {
+            $brands = $brandRepository->findAll();
+        }
+
         return $this->render('brand/brands.html.twig', [
-            'brands' => $brandRepository->findAll(),
+            'brandFilter' => $form->createView(),
+            'brands' => $brands,
         ]);
     }
 

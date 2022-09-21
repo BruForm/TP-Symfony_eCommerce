@@ -4,17 +4,32 @@
 
 {% block main %}
 
+    {% for message in app.flashes('success') %}
+        <p>{{ message }}</p>
+    {% endfor %}
+
     <h1>Products Page ✅</h1>
+
+    <hr>
+    {{ form_start(productFilter, {'attr': {'class': 'd-flex'}}) }}
+        {{ form_row(productFilter.filterOnName) }}
+        {{ form_row(productFilter.filterOnPrice) }}
+        <input type="submit" value="Search" class="btn btn-info ms-2">
+        <input type="reset" value="Reset" class="btn btn-secondary ms-2">
+    {{ form_end(productFilter) }}
+    <hr>
+
     <a href="{{ path('app_product_new') }}" class="btn btn-primary">Create New</a>
     <div class="d-flex flex-wrap">
         {% for product in products %}
             <div class="card m-2" style="width: 18rem;">
-                <img src="https://via.placeholder.com/200x150.png/005544/010101?text=Image {{ product.name }}" class="card-img-top"
+                <img src="https://via.placeholder.com/200x150.png/005544/010101?text=Image {{ product.name }}"
+                     class="card-img-top"
                      alt="...">
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">{{ product.name }}</h5>
                     <p class="card-text">{{ product.description }}</p>
-                    <p class="card-text">{{ product.price | number_format(2) }}€</p>
+                    <p class="card-text"><strong>{{ product.price | number_format(2) }}</strong>€</p>
                     <a href="{{ path('app_product_details', {'id' : product.id}) }}" class="btn btn-primary mt-auto">Details</a>
                 </div>
             </div>

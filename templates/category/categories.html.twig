@@ -9,6 +9,14 @@
     {% endfor %}
 
     <h1>Categories Page ✅</h1>
+
+    <hr>
+    {{ form_start(categoryFilter, {'attr': {'class': 'd-flex'}}) }}
+        {{ form_row(categoryFilter.filterOnName) }}
+        <input type="submit" value="Search" class="btn btn-info ms-2">
+    {{ form_end(categoryFilter) }}
+    <hr>
+
     <a href="{{ path('app_category_new') }}" class="btn btn-primary">Create New</a>
     <div class="d-flex flex-wrap">
         {% for category in categories %}

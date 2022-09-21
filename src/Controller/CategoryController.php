@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Form\CategoryFilterType;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,10 +15,21 @@ use Symfony\Component\Routing\Annotation\Route;
 class CategoryController extends AbstractController
 {
     #[Route('/categories', name: 'app_category')]
-    public function index(CategoryRepository $categoryRepository): Response
+    public function index(Request $request, CategoryRepository $categoryRepository): Response
     {
+        $form = $this->createForm(CategoryFilterType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $search = $form->get('filterOnName')->getData();
+            $categories = $categoryRepository->findAllFilteredByName($search);
+        } else {
+            $categories = $categoryRepository->findAll();
+        }
+
         return $this->render('category/categories.html.twig', [
-            'categories' => $categoryRepository->findAll(),
+            'categoryFilter' => $form->createView(),
+            'categories' => $categories,
         ]);
     }
 

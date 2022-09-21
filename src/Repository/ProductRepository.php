@@ -39,6 +39,29 @@ class ProductRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllPricesGT(float $price)
+    {
+        return $this->createQueryBuilder('pr')
+            ->where('pr.price > :price')
+            ->setParameter('price', $price)
+            ->orderBy('pr.price', 'desc')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAllFilteredByNamePrice(?string $filterName, float $filterPrice): array
+    {
+        return $this->createQueryBuilder('pr')
+            ->where('pr.name like :name')
+            ->setParameter('name', '%' . $filterName . '%')
+            ->andWhere('pr.price >= :price')
+            ->setParameter('price', $filterPrice)
+            ->orderBy('pr.name','asc')
+            ->addOrderBy('pr.price', 'asc')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Product[] Returns an array of Product objects
 //     */

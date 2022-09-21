@@ -6,6 +6,7 @@ use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -16,6 +17,8 @@ class Product
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(['message' => 'Le nom ne peut etre vide'])]
+    #[Assert\Length(['min' => 3, 'minMessage' => 'Le nom doit contenir au minimum {{ limit }} caracteres !'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]

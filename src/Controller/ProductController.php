@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Brand;
 use App\Entity\Category;
 use App\Entity\Product;
+use App\Form\ProductFilterType;
 use App\Form\ProductType;
 use App\Repository\BrandRepository;
 use App\Repository\CategoryRepository;
@@ -14,14 +15,29 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use function PHPUnit\Framework\isNull;
 
 class ProductController extends AbstractController
 {
     #[Route('/products', name: 'app_product')]
-    public function index(ProductRepository $productRepository): Response
+    public function index(Request $request, ProductRepository $productRepository): Response
     {
+        $form = $this->createForm(ProductFilterType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $filterName = $form->get('filterOnName')->getData();
+            $filterPrice = $form->get('filterOnPrice')->getData();
+            if (is_null($filterPrice)) {$filterPrice = 0;}
+            $products = $productRepository->findAllFilteredByNamePrice($filterName, $filterPrice);
+        } else {
+            $products = $productRepository->findAll();
+        }
+//        $products = $productRepository->findAllPricesGT(50);
+
         return $this->render('product/products.html.twig', [
-            'products' => $productRepository->findAll(),
+            'productFilter' => $form->createView(),
+            'products' => $products
         ]);
     }
 

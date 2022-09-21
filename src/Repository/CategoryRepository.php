@@ -39,6 +39,15 @@ class CategoryRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllFilteredByName(?string $search): array
+    {
+        return $this->createQueryBuilder('s')
+            ->where('s.name like :val')
+            ->setParameter('val', '%' . $search . '%')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Category[] Returns an array of Category objects
 //     */
